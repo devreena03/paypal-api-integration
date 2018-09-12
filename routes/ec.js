@@ -53,7 +53,6 @@ router.get('/payment/:id', function(req, res){
 
 router.post('/create-payment', function(req, res){
     console.log("create");
-    console.log(req.body);
     var options = {
         host: sanboxUrl,
         path: '/v1/payments/payment',
@@ -81,13 +80,12 @@ router.post('/create-payment', function(req, res){
               console.log(e);
            });
         });
-       // http_request.write(JSON.stringify(create_payment));
         http_request.write(JSON.stringify(req.body));
         http_request.end();
     });
 });
 
-//comming from checkout.js execute or mobile-devices
+//comming from checkout.js execute 
 router.post('/execute-payment', function(req, res){
     executePayment(req.body,function(response){
         res.status(response.statusCode);
@@ -95,20 +93,26 @@ router.post('/execute-payment', function(req, res){
     })
 });
 
-//full page redirect
+//coming from ios
 router.get('/success', function(req, res){
+    console.log("success");
     var value = {
-        paymentID: req.query.paymentID,
-        payerID:   req.query.payerID
+        paymentID: req.query.paymentId,
+        payerID:   req.query.PayerID
     }
     executePayment(value,function(response){
-        res.status(response.statusCode);
-        res.send(response.body); 
+        console.log(response.body);
+        console.log(response.body.id);
+        if(response.statusCode == 200 && response.body.status == "approved"){
+            res.writeHead(302,{'Location':("com.reena.ec-rest://success/?paymentId="+response.body.id)});       
+        } else {
+            res.writeHead(302,{'Location':("com.reena.ec-rest://error/?token="+req.query.token)});
+        }      
+        res.end();
     })
 });
 
 var executePayment = function(payment, callback){
-    console.log(payment);
     var options = {
         host: sanboxUrl,
         path: '/v1/payments/payment/'+payment.paymentID+'/execute',
@@ -128,10 +132,8 @@ var executePayment = function(payment, callback){
             body+=chunk;
         });
         response.on('end', function(){
-            response.body = body;
-            callback(response);
-            // res.status(response.statusCode);
-            // res.send(body);          
+            response.body = JSON.parse(body);
+            callback(response);         
         });
         response.on('error', function(e){
             console.log('response error');
