@@ -103,7 +103,7 @@ router.get('/success', function(req, res){
     executePayment(value,function(response){
         console.log(response.body);
         console.log(response.body.id);
-        if(response.statusCode == 200 && response.body.status == "approved"){
+        if(response.statusCode == 200 && response.body.state == "approved"){
             res.writeHead(302,{'Location':("com.reena.ec-rest://success/?paymentId="+response.body.id)});       
         } else {
             res.writeHead(302,{'Location':("com.reena.ec-rest://error/?token="+req.query.token)});
