@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+
+<body>
+
+<div id="paypal-button-container"></div>
+
+    <script>
+       paypal.Button.render({
+    env: 'sandbox', 
+    client: {
+        sandbox: 'AfA2FohT_nNkWehtWR0yLqWn2hWas_3twM-7ljCQmjHdR07C5s5Z2Lmya5w1RhSR3CGX10Ffy4BWw9al' //ios-sdk-test
+        // sandbox: 'AcuuDiWgApKeQx7oY6wuGh2kbAIzy8B1NrruTzVl_vn3Dqv7a-EYGKlHRMb70fjc3eX3EP5rlM3VUp8g'      
+    },
+    commit: true,
+    style: {
+      layout: 'vertical'
+    },
+    funding: {
+      allowed: [ paypal.FUNDING.CARD ],
+      disallowed: [ paypal.FUNDING.CREDIT ]
+    },
+    payment: function(data, actions) {
+        return actions.order.create({
+            order: {
+                "intent": "CAPTURE",
+                "purchase_units": [
+                  {
+                    "amount": {
+                      "currency_code": "USD",
+                      "value": "24.00",
+                      "breakdown": {
+                        "item_total": {
+                          "currency_code": "USD",
+                          "value": "19.00"
+                        },
+                        "shipping": {
+                          "currency_code": "USD",
+                          "value": "2.00"
+                        },
+                        "handling": {
+                          "currency_code": "USD",
+                          "value": "1.00"
+                        },
+                        "tax_total": {
+                          "currency_code": "USD",
+                          "value": "3.00"
+                        },
+                        "shipping_discount": {
+                          "currency_code": "USD",
+                          "value": "1.00"
+                        }
+                      }
+                    },
+                    // "payee":
+                    //     {
+                    //       "email_address": "india-business2@test.com"
+                    //      // "merchant_id": "4QYTDNTGLHGWQ"
+                    //     },
+                    "items": [
+                    {
+                      "name": "T-Shirt",
+                      "description": "Green XL",
+                      "sku": "sku01",
+                      "unit_amount": {
+                        "currency_code": "USD",
+                        "value": "9.00"
+                      },
+                      "tax": {
+                        "currency_code": "USD",
+                        "value": "1.00"
+                      },
+                      "quantity": "1",
+                      "category": "PHYSICAL_GOODS"
+                    },
+                    {
+                      "name": "Shoes",
+                      "description": "Running, Size 10.5",
+                      "sku": "sku02",
+                      "unit_amount": {
+                        "currency_code": "USD",
+                        "value": "5.00"
+                      },
+                      "tax": {
+                        "currency_code": "USD",
+                        "value": "1.00"
+                      },
+                      "quantity": "2",
+                      "category": "PHYSICAL_GOODS"
+                    }]
+                  }]
+                    }
+                });
+            },
+    onAuthorize: function(data, actions) {   
+        console.log(data);
+        return actions.order.capture().then(function() {
+            window.alert('Payment Complete!');
+        });
+    }
+}, '#paypal-button-container');
+
+    </script>
+</body>

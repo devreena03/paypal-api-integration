@@ -88,6 +88,7 @@ router.post('/create-payment', function(req, res){
 //comming from checkout.js execute 
 router.post('/execute-payment', function(req, res){
     executePayment(req.body,function(response){
+        console.log(response.body);
         res.status(response.statusCode);
         res.send(response.body); 
     })
