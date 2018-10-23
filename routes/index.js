@@ -14,8 +14,12 @@ app.get("/ec-server", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-server.html');
 });
 
-app.get("/client-orderv2", function(req, res){
-	res.sendFile(__basedir + '/public/view/client-orderv2.html');
+app.get("/orderv2-client", function(req, res){
+	res.sendFile(__basedir + '/public/view/orderv2-client.html');
+});
+
+app.get("/orderv2-server", function(req, res){
+	res.sendFile(__basedir + '/public/view/orderv2-server.html');
 });
 
 app.get("/ec-bt", function(req, res){
