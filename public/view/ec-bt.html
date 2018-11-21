@@ -18,11 +18,23 @@
 paypal.Button.render({
     braintree: braintree,
     client: {
-      sandbox: paypal.request.get('https://bt-direct.herokuapp.com/payments/client_token'),
-      production: paypal.request.get('https://bt-direct.herokuapp.com/payments/client_token')
+      sandbox: paypal.request.get('https://nequeo.serveo.net/api/paypal/ecbt/client_token'),
+      production: paypal.request.get('https://nequeo.serveo.net/api/paypal/ecbt/client_token')
     },
     env: 'sandbox', //'production'/'sandbox'
     commit: true,
+    locale:"de_DE",
+    style: {
+				layout: 'vertical',  // horizontal | vertical
+				size:   'medium',    // medium | large | responsive
+				shape:  'rect',      // pill | rect
+				color:  'gold'       // gold | blue | silver | black
+				},
+
+            // funding: {
+            //     allowed: [ paypal.FUNDING.CARD ],
+            //     disallowed: [ ]
+            // },
   
     payment: function (data, actions) {
       return actions.braintree.create({
@@ -34,7 +46,7 @@ paypal.Button.render({
   
     onAuthorize: function (payload) {
         console.log(payload.nonce);
-        var EXECUTE_URL = 'https://bt-direct.herokuapp.com/payments/checkout';
+        var EXECUTE_URL = 'https://nequeo.serveo.net/api/paypal/ecbt/checkout';
         var executeValues = {
             nonce: payload.nonce,
             amount: 1.00

@@ -72,7 +72,7 @@ app.post("/checkout", function (req, res) {
         amount: req.body.amount,
         merchantAccountId: "INR",
         paymentMethodNonce: nonce,
-        orderId : "ABX1010987",
+       // orderId : "ABX1010987",
         options: {
           paypal: {
             customField: "BOX2012JHGFDkjkkjkljjj jhflkjs",

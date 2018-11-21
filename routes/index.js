@@ -36,4 +36,9 @@ app.get('/apple-app-site-association', function(req, res, next) {
     res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.smysample","paths":["*"]}]}}');   
 });
 
+//app.get('/apple-app-site-association', function(req, res, next) {
+//	console.log("inside universal link");
+//    res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.nativexo-integration-objective-c","paths":["*"]}]}}');   
+//});
+
 module.exports = app;
