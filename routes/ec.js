@@ -149,8 +149,6 @@ var executePayment = function(payment, callback){
     http_request.end();
 };
 
-<<<<<<< HEAD
-=======
 var initialize = function(){  
     var options = {
         host: sanboxUrl,
@@ -181,5 +179,4 @@ var initialize = function(){
     });
 }
 
->>>>>>> a2f19de3aa082b6826087c3cef831195e0fc71ec
 module.exports = router;
