@@ -28,12 +28,29 @@ app.get("/ec-bt", function(req, res){
 
 // app.get('/apple-app-site-association', function(req, res, next) {
 // 	console.log("inside universal link");
-//     res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.smysample","paths":["*"]}]}}');   
+//     res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.smysample","paths":["/sdkuniversalLink"]}]}}');   
 // });
 
 app.get('/apple-app-site-association', function(req, res, next) {
 	console.log("inside universal link");
-    res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.nativexo-integration-objective-c","paths":["*"]}]}}');   
+	var applinks = {
+		"applinks": {
+			"apps": [],
+			"details": [{
+				"appID": "87GA28WQTJ.com.reena.nativexo-integration-objective-c",
+				"paths": ["/nativexo-objec"]
+				},
+				{
+				"appID": "87GA28WQTJ.com.reena.smysample",
+				"paths": ["/sdkuniversalLink"]
+				},
+				{
+				"appID": "87GA28WQTJ.com.reena.nativexo-integration-swift",
+				"paths": ["/nativexo-swift"]
+				}]
+			}
+	}
+    res.send(applinks);   
 });
 
 module.exports = app;
