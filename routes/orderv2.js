@@ -1,6 +1,5 @@
 var express = require('express');
 var request = require('request');
-var https = require("https");
 var initialize = require("./config");
 
 var router = express.Router();
@@ -30,6 +29,8 @@ router.post('/create/', function(req, res) {
                 id: response.body.id
             });
         });
+    }, function(err){
+        console.log(err);
     });
 });
 

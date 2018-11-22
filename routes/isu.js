@@ -19,7 +19,7 @@ router.get('/access-token', function(req, res){
     });
 });
 
-router.post('/create-referal', function(req, res){
+router.get('/create-referal', function(req, res){
     var trackingId = 'track002';
     var options = {
         host: sanboxUrl,

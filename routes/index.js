@@ -24,11 +24,14 @@ app.get("/orderv2-server", function(req, res){
 
 app.get("/ec-bt", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-bt.html');
-});
+});~
 
-// app.get('/apple-app-site-association', function(req, res, next) {
-// 	console.log("inside universal link");
-//     res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.smysample","paths":["/sdkuniversalLink"]}]}}');   
+// app.get("/isu", function(req, res){
+// 	res.sendFile(__basedir + '/public/view/isu.html');
+// });
+
+// app.get("/p2p", function(req, res){
+// 	res.sendFile(__basedir + '/public/view/p2p.html');
 // });
 
 app.get('/apple-app-site-association', function(req, res, next) {
@@ -52,5 +55,10 @@ app.get('/apple-app-site-association', function(req, res, next) {
 	}
     res.send(applinks);   
 });
+
+//app.get('/apple-app-site-association', function(req, res, next) {
+//	console.log("inside universal link");
+//    res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.smysample","paths":["*"]}]}}');   
+//});
 
 module.exports = app;

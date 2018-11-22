@@ -1,7 +1,9 @@
 var express = require('express');
 var https = require("https");
+var initialize = require("./config");
 
 var router = express.Router();
+
 var sanboxUrl = 'api.sandbox.paypal.com';
 var clientId = "AfA2FohT_nNkWehtWR0yLqWn2hWas_3twM-7ljCQmjHdR07C5s5Z2Lmya5w1RhSR3CGX10Ffy4BWw9al"; //ios-test
 var secret = "EFA0CCI6b2Y_SaO_FWngfiqec-weQ6KkzjsDQ7nxujgxtDjQ5C49ID7R0aQPs35v5onVG40c3tdPli_N";

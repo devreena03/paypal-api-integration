@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+
+<body>
+        <div style="text-align: center; margin-top: 10%">
+                <div>
+                   API caller :<select id="apicaller">
+                                <option value="us" selected="true">US</option>
+                                <option value="india" >INDIA</option>
+                                <option value="japan" >JAPAN</option>
+                             </select>
+                    Payment_type : <select id="paymentType">
+                        <option value="PERSONAL" selected="true">PERSONAL</option>
+                        <option value="PURCHASE" >PURCHASE</option>
+                        </select>         
+                    Payee: <input type="email" id="payee" value=""/>         
+                    Amount: <input type="text" id="amountId" value="1" size="4"/>
+                    Currency : <select id="selectedCurrency">
+                                <option value="INR">INR</option>
+                                <option value="USD" selected="true">USD</option>
+                                <option value="JPY">JPY</option>
+                             </select>
+                </div>
+                <br><br>
+            
+               <div id="paypal-button"></div>
+            </div>
+        
+        <script>
+         // var payment_token = '/api/paypal/p2p/payment-token';
+          paypal.Button.render({
+            env: 'sandbox', //'production'
+            payment: function(data, actions) {
+                var payload = {
+                        "amount": document.getElementById("amountId").value,
+                        "currency": document.getElementById("selectedCurrency").value,
+                        "email": document.getElementById("payee").value,
+                        "apicaller" : document.getElementById("apicaller").value,
+                        "paymentType": document.getElementById("paymentType").value
+                };
+                return actions.request({
+                    method: 'post',
+                    url: '/api/paypal/p2p/payment-token',
+                    json: payload
+                    
+                }) .then(function(res) {
+                    console.log(res);
+                    window.open(res.body.links[0].href);
+                });
+            },
+            onAuthorize: function(data, actions) {
+                console.log(data);
+             
+            }
+          }, '#paypal-button');
+        </script>
+</body>
