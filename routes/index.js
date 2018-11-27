@@ -26,6 +26,10 @@ app.get("/orderv1-server", function(req, res){
 	res.sendFile(__basedir + '/public/view/orderv1-server.html');
 });
 
+app.get("/nvp", function(req, res){
+	res.sendFile(__basedir + '/public/view/nvp.html');
+});
+
 app.get("/ec-bt", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-bt.html');
 });~
