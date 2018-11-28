@@ -9,6 +9,7 @@
 <body>
 
 <div style="text-align: center; margin-top: 10%">
+    <h3>Smart payment button - server side implementation with payemnts api</h3>
 	<div>
 		Amount: <input type="text" id="amountId" value="1" size="4"/>
 		Currency : <select id="selectedCurrency">
@@ -73,14 +74,25 @@
     },
     onAuthorize: function(data, actions) {
       console.log(data);
-      console.log(actions);
+      var paymentID = data.paymentID ? data.paymentID : extractPaymentIdFromReturnURL(data.returnUrl);
       return actions.request.post('/api/paypal/ec/execute-payment/', {
-        paymentID: data.paymentID,
+        paymentID: paymentID,
         payerID:   data.payerID
       }).then(function(res) {
           console.log(res);
         });
     }
   }, '#paypal-server-button');
+  function extractPaymentIdFromReturnURL(returnUrl){
+    var obj = {};  
+    var arr = returnUrl.split("?")[1].split("&");
+    arr.forEach(element => {
+        console.log(element);
+        var values = element.split("=");
+        obj[values[0]] = values[1];
+    });
+    console.log(obj);
+    return obj.paymentId;
+  }
 </script>
 </body>

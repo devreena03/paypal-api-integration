@@ -25,9 +25,7 @@ router.post('/create/', function(req, res) {
                 return res.sendStatus(500);
             }
             console.log(response);
-            res.json({
-                id: response.body.id
-            });
+            res.json(response.body);
         });
     }, function(err){
         console.log(err);
