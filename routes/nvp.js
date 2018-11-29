@@ -15,17 +15,17 @@ var setExpress = "METHOD=SetExpressCheckout"
                 +"&CANCELURL=http://www.example.com/cancel.html"
                 +"&L_PAYMENTREQUEST_0_QTY0=1";
 
-var doExpress = "METHOD=SetExpressCheckout"
+var doExpress = "METHOD=DoExpressCheckoutPayment"
                +"&VERSION=109.0"
-               +"&PAYMENTREQUEST_0_PAYMENTACTION=SALE";
+               +"&PAYMENTACTION=SALE";
 
 var sanboxUrl = 'https://api-3t.sandbox.paypal.com/nvp ';
 
-router.post('/setExpress/', function(req, res) {
+router.post('/setExpress', function(req, res) {
     console.log("inside setExpress");
     console.log(req.body);
-    var payload = config + "&" + setExpress 
-                +"&PAYMENTREQUEST_0_AMT=" + req.body.amount
+    var payload = config + "&" + 
+                 setExpress + "&PAYMENTREQUEST_0_AMT="+ req.body.amount
                 +"&PAYMENTREQUEST_0_CURRENCYCODE=" + req.body.currency
                 +"&L_PAYMENTREQUEST_0_AMT0=" + req.body.amount;
 
@@ -47,13 +47,14 @@ router.post('/setExpress/', function(req, res) {
     
 });
 
-router.post('/setExpress/', function(req, res) {
-    console.log("inside setExpress");
+router.post('/doExpress', function(req, res) {
+    console.log("inside doExpress");
     console.log(req.body);
-    var payload = config + "&" + setExpress 
-                +"&PAYMENTREQUEST_0_AMT=" + req.body.amount
-                +"&PAYMENTREQUEST_0_CURRENCYCODE=" + req.body.currency
-                +"&L_PAYMENTREQUEST_0_AMT0=" + req.body.amount;
+    var payload = config + "&" + 
+               doExpress +"&amt=" + req.body.amount
+                +"&payerid=" + req.body.payerId
+                +"&CURRENCYCODE=" + req.body.currency
+                +"&token=" + req.body.token;
 
     console.log(payload);        
 

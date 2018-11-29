@@ -9,7 +9,7 @@
 <body>
 
 <div style="text-align: center; margin-top: 10%">
-    <h3>Smart payment button - server side implementation with payemnts api</h3>
+    <h3>SPB - Server side implementation with Payment API</h3>
 	<div>
 		Amount: <input type="text" id="amountId" value="1" size="4"/>
 		Currency : <select id="selectedCurrency">
@@ -80,6 +80,7 @@
         payerID:   data.payerID
       }).then(function(res) {
           console.log(res);
+          window.alert('Payment Complete!');
         });
     }
   }, '#paypal-server-button');

@@ -23,7 +23,7 @@
         
         <script>
           var setExpress = '/api/paypal/nvp/setExpress';
-          var getexpress = '/api/paypal/nvp/doExpress';
+          var doExpress = '/api/paypal/nvp/doExpress';
           paypal.Button.render({
             env: 'sandbox', //'production'
             style: {
@@ -49,14 +49,14 @@
             },
             onAuthorize: function(data, actions) {
                 console.log(data);
-              return actions.request.post(PAY_ORDER, {
+              return actions.request.post(doExpress, {
                 token: data.paymentToken,
                 payerId: data.payerID,
-                "currency": document.getElementById("selectedCurrency").value,
-                "amount": document.getElementById("amountId").value 
+                currency: document.getElementById("selectedCurrency").value,
+                amount: document.getElementById("amountId").value 
               }).then(function(res) {
                   console.log(res);
-                  window.alert("payment completed");
+                  window.alert('Payment Complete!');
                 });
             }
           }, '#paypal-button');
