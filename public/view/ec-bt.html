@@ -30,12 +30,12 @@
 paypal.Button.render({
     braintree: braintree,
     client: {
-      sandbox: paypal.request.get('https://nequeo.serveo.net/api/paypal/ecbt/client_token'),
-      production: paypal.request.get('https://nequeo.serveo.net/api/paypal/ecbt/client_token')
+      sandbox: paypal.request.get('/api/paypal/ecbt/client_token'),
+      production: paypal.request.get('/api/paypal/ecbt/client_token')
     },
     env: 'sandbox', //'production'/'sandbox'
     commit: true,
-    locale:"de_DE",
+   // locale:"de_DE",
     style: {
 				layout: 'vertical',  // horizontal | vertical
 				size:   'medium',    // medium | large | responsive
