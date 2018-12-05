@@ -68,15 +68,16 @@ app.post("/checkout", function (req, res) {
     var nonce = req.body.nonce;
     console.log(req.body.amount);
     console.log(nonce);
+    console.log(req.body.currency);
     var saleRequest = {
         amount: req.body.amount,
-        merchantAccountId: "INR",
+        merchantAccountId: req.body.currency?req.body.currency:"INR",
         paymentMethodNonce: nonce,
        // orderId : "ABX1010987",
         options: {
           paypal: {
-            customField: "BOX2012JHGFDkjkkjkljjj jhflkjs",
-            description: "Paypal test recipt jlkjoiuoi hgjh"
+            customField: "Paypal test recipt",
+            description: "Paypal test recipt"
           },
           submitForSettlement: true
         }

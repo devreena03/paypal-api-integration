@@ -42,11 +42,6 @@ paypal.Button.render({
 				shape:  'rect',      // pill | rect
 				color:  'gold'       // gold | blue | silver | black
 				},
-
-            // funding: {
-            //     allowed: [ paypal.FUNDING.CARD ],
-            //     disallowed: [ ]
-            // },
   
     payment: function (data, actions) {
       return actions.braintree.create({
@@ -61,7 +56,8 @@ paypal.Button.render({
         var EXECUTE_URL = '/api/paypal/ecbt/checkout';
         var executeValues = {
             nonce: payload.nonce,
-            amount: 1.00
+            amount:  document.getElementById("amountId").value,
+            currency: document.getElementById("selectedCurrency").value
         };
         return paypal.request.post(EXECUTE_URL, executeValues)
             .then(function (res) {
