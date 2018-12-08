@@ -58,6 +58,10 @@ app.get('/apple-app-site-association', function(req, res, next) {
 				{
 				"appID": "87GA28WQTJ.com.reena.nativexo-integration-swift",
 				"paths": ["/nativexo-swift"]
+				},
+				{
+				"appID": "87GA28WQTJ.com.reena.ps-demo1",
+				"paths": ["/ps-demo"]
 				}]
 			}
 	}
