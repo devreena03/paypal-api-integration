@@ -133,7 +133,7 @@ app.post("/vaultwithpayment", function (req, res) {
        paymentMethodNonce: nonce,
        // orderId : req.body.invoice_id,
         options: {
-         //submitForSettlement: true,
+          submitForSettlement: true,
           storeInVault: true 
         },
         // customer : {
@@ -172,7 +172,7 @@ app.post("/autopay", function (req, res) {
         amount: req.body.amount,
         merchantAccountId: req.body.currency?req.body.currency:"USD",
         paymentMethodToken: req.body.rt_token,
-        orderId : req.body.invoice_id,
+       // orderId : req.body.invoice_id,
         options: {
           submitForSettlement: true
         }
