@@ -128,9 +128,9 @@ app.post("/vaultwithpayment", function (req, res) {
     var nonce = req.body.nonce;
     console.log(nonce);
     var saleRequest = {
-       // amount: "1",
-       // merchantAccountId: req.body.currency?req.body.currency:"USD",
-        paymentMethodNonce: nonce,
+       amount: req.body.amount?eq.body.amount:"1.00",
+       merchantAccountId: req.body.currency?req.body.currency:"USD",
+       paymentMethodNonce: nonce,
        // orderId : req.body.invoice_id,
         options: {
          //submitForSettlement: true,
