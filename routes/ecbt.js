@@ -164,16 +164,18 @@ app.post("/vaultwithpayment", function (req, res) {
           res.send(err.message);
         } else if (result.success) {
           console.log(result);
-          console.log('payment sucess with result.transaction.id'+ result.transaction.id);
           if(fulldata === "all"){
             res.send(result);
           }else {
             res.send({
+              success : result.success,
               id : result.transaction.id,
-              customerId: result.customer.id,
-              token : result.customer.paymentMethods[0].token,
-              payeeEmail: result.customer.paymentMethods[0].payeeEmail,
-              success : result.success
+              orderId: result.transaction.orderId,
+              amount: result.transaction.amount,
+              currency: result.transaction.merchantAccountId,
+              customerId: result.transaction.customer.id,
+              token : result.transaction.paypal.token,
+              payerEmail: result.transaction.paypal.payerEmail,             
             });
           }      
         } else {
