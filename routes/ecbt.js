@@ -191,6 +191,7 @@ app.post("/autopay", function (req, res) {
     console.log(req.body.amount);
     console.log(req.body.rt_token);
     console.log(req.body.currency);
+    var fulldata = req.body.fulldata?req.body.fulldata:"minimal";
     var saleRequest = {
         amount: req.body.amount,
         merchantAccountId: req.body.currency?req.body.currency:"USD",
@@ -208,7 +209,20 @@ app.post("/autopay", function (req, res) {
         } else if (result.success) {
           console.log(result);
           console.log('payment sucess with result.transaction.id'+ result.transaction.id);
-          res.send(result);
+          if(fulldata === "all"){
+            res.send(result);
+          }else {
+            res.send({
+              success : result.success,
+              id : result.transaction.id,
+              orderId: result.transaction.orderId,
+              amount: result.transaction.amount,
+              currency: result.transaction.merchantAccountId,
+              customerId: result.transaction.customer.id,
+              token : result.transaction.paypal.token,
+              payerEmail: result.transaction.paypal.payerEmail,             
+            });
+          } 
         } else {
           console.log(result);
           res.status(500);
