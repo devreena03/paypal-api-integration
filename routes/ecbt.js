@@ -102,6 +102,7 @@ app.post("/checkout", function (req, res) {
   app.post("/vault", function (req, res) {
     console.log('vault');
       console.log(req.body.nonce);
+      var fulldata = req.body.fulldata?req.body.fulldata:"minimal";
       gateway.customer.create({
         firstName: "Reena",
         lastName: "Kumari",
@@ -112,9 +113,18 @@ app.post("/checkout", function (req, res) {
           console.log(err);
           res.send(err.message);
         } else if (result.success) {
-          console.log('Customer created with customer id: '+ result.customer.id);
-          console.log('Payment token: '+ result.customer.paymentMethods[0].token);
-          res.send(result);
+          console.log(result);
+          if(fulldata === "all"){
+            res.send(result);
+          }else {
+            res.send({
+              success : result.success,
+              customerId: result.customer.paymentMethods[0].customerId,
+              token : result.customer.paymentMethods[0].token,
+              payeeEmail: result.customer.paymentMethods[0].email,
+              billingAgreementId: result.customer.paymentMethods[0].billingAgreementId              
+            });
+          }         
         } else {
           console.log(result);
           res.status(500);
@@ -126,6 +136,7 @@ app.post("/checkout", function (req, res) {
 app.post("/vaultwithpayment", function (req, res) {
   console.log('vault with payment');
     var nonce = req.body.nonce;
+    var fulldata = req.body.fulldata?req.body.fulldata:"minimal";
     console.log(nonce);
     var saleRequest = {
        // amount: "1",
@@ -154,7 +165,17 @@ app.post("/vaultwithpayment", function (req, res) {
         } else if (result.success) {
           console.log(result);
           console.log('payment sucess with result.transaction.id'+ result.transaction.id);
-          res.send(result);
+          if(fulldata === "all"){
+            res.send(result);
+          }else {
+            res.send({
+              id : result.transaction.id,
+              customerId: result.customer.id,
+              token : result.customer.paymentMethods[0].token,
+              payeeEmail: result.customer.paymentMethods[0].payeeEmail,
+              success : result.success
+            });
+          }      
         } else {
           console.log(result);
           res.status(500);
