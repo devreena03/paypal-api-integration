@@ -121,7 +121,7 @@ app.post("/checkout", function (req, res) {
               success : result.success,
               customerId: result.customer.paymentMethods[0].customerId,
               token : result.customer.paymentMethods[0].token,
-              payeeEmail: result.customer.paymentMethods[0].email,
+              payerEmail: result.customer.paymentMethods[0].email,
               billingAgreementId: result.customer.paymentMethods[0].billingAgreementId              
             });
           }         
