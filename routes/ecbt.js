@@ -220,7 +220,8 @@ app.post("/autopay", function (req, res) {
               currency: result.transaction.merchantAccountId,
               customerId: result.transaction.customer.id,
               token : result.transaction.paypal.token,
-              payerEmail: result.transaction.paypal.payerEmail,             
+              payerEmail: result.transaction.paypal.payerEmail, 
+              paymentId: result.transaction.paypal.paymentId            
             });
           } 
         } else {
