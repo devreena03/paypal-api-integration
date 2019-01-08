@@ -14,7 +14,7 @@ function createPayment(){
         }
     ],
     redirect_urls : {
-      "return_url": "http://localhost:8080/api/paypal/ec/web/success",
+      "return_url": "https://paypal-integration-sample.herokuapp.com/api/paypal/ec/web/success",
       "cancel_url": "http://www.hawaii.com"
     }
    };
