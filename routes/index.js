@@ -50,6 +50,10 @@ app.get("/isu", function(req, res){
 	res.sendFile(__basedir + '/public/view/isu.html');
 });
 
+app.get("/wps", function(req, res){
+	res.sendFile(__basedir + '/public/view/wps.html');
+});
+
 // app.get("/p2p", function(req, res){
 // 	res.sendFile(__basedir + '/public/view/p2p.html');
 // });
