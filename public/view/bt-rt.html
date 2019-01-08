@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1">
+  <title>EC BT demo</title>
+
+  <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
+  <script src="https://js.braintreegateway.com/web/3.25.0/js/client.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.25.0/js/paypal-checkout.min.js"></script>
+
+  <!-- Load the device data component. -->
+  <script src="https://js.braintreegateway.com/web/3.15.0/js/data-collector.min.js"></script>
+
+</head>
+
+<body>
+     
+     <div style="text-align: center; margin-top: 10%">
+      <label>BT-RT Web integration</label>
+          <div><br>
+              Reference transaction type: 
+              <input type="radio" name="rtTypes" value="vaultwithpayment" checked>With Payment
+              <input type="radio" name="rtTypes" value="vault">Without Payment
+          </div>
+          <br><br> 
+      
+          <div id="paypal-button-container-bt-rt"></div>
+<!-- 
+          <br>
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_auto_billing_LG.gif"/> -->
+      </div>
+<script>
+braintree.client.create({
+     authorization: "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJlZDM2OGM3YTU4NDcwYjIzODlhMmUzZjUwNmE3MWE3NDNhYzBhZTA1YjMzNWU5YmNkY2VmZjJmMzgzMWJhNGIyfGNsaWVudF9pZD1jbGllbnRfaWQkc2FuZGJveCQ0ZHByYmZjNnBoNTk1Y2NqXHUwMDI2Y3JlYXRlZF9hdD0yMDE4LTEyLTE5VDA5OjAwOjI2Ljg1ODg1MjkwMSswMDAwXHUwMDI2bWVyY2hhbnRfaWQ9dnc4ZGg3aHA3OWtxdHI2MyIsImNvbmZpZ1VybCI6Imh0dHBzOi8vYXBpLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb206NDQzL21lcmNoYW50cy92dzhkaDdocDc5a3F0cjYzL2NsaWVudF9hcGkvdjEvY29uZmlndXJhdGlvbiIsImdyYXBoUUwiOnsidXJsIjoiaHR0cHM6Ly9wYXltZW50cy5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tL2dyYXBocWwiLCJkYXRlIjoiMjAxOC0wNS0wOCJ9LCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3Z3OGRoN2hwNzlrcXRyNjMvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vb3JpZ2luLWFuYWx5dGljcy1zYW5kLnNhbmRib3guYnJhaW50cmVlLWFwaS5jb20vdnc4ZGg3aHA3OWtxdHI2MyJ9LCJ0aHJlZURTZWN1cmVFbmFibGVkIjpmYWxzZSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQlQgVGVzdCBhY2NvdW50J3MgVGVzdCBTdG9yZSIsImNsaWVudElkIjoiQWNDaUM5bFNKWUM2WGg3NVRVSlY1X25uWllzWEt2NWg1QlpLU3lsVzJpNWpRa2hRVHhCMnFXZVY0bFFtRmdmVF8yRFdUZWJKcEk3TmhLQk0iLCJwcml2YWN5VXJsIjoiaHR0cHM6Ly9leGFtcGxlLmNvbSIsInVzZXJBZ3JlZW1lbnRVcmwiOiJodHRwczovL2V4YW1wbGUuY29tIiwiYmFzZVVybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9jaGVja291dC5wYXlwYWwuY29tIiwiZGlyZWN0QmFzZVVybCI6bnVsbCwiYWxsb3dIdHRwIjp0cnVlLCJlbnZpcm9ubWVudE5vTmV0d29yayI6ZmFsc2UsImVudmlyb25tZW50Ijoib2ZmbGluZSIsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJicmFpbnRyZWVDbGllbnRJZCI6Im1hc3RlcmNsaWVudDMiLCJiaWxsaW5nQWdyZWVtZW50c0VuYWJsZWQiOnRydWUsIm1lcmNoYW50QWNjb3VudElkIjoiSU5SIiwiY3VycmVuY3lJc29Db2RlIjoiSU5SIn0sIm1lcmNoYW50SWQiOiJ2dzhkaDdocDc5a3F0cjYzIiwidmVubW8iOiJvZmYifQ=="
+    }, function (clientErr, clientInstance) {
+    if (clientErr) {
+      console.error('Error creating client:', clientErr);
+      return;
+    }
+    // Create a PayPal Checkout component.
+    braintree.paypalCheckout.create({
+          client: clientInstance
+        }, function (paypalCheckoutErr, paypalCheckoutInstance) {
+        if (paypalCheckoutErr) {
+          console.error('Error creating PayPal Checkout:', paypalCheckoutErr);
+          return;
+        }
+        paypal.Button.render({
+          env: 'sandbox', //'production'/'sandbox'
+  
+          payment: function () {
+            return paypalCheckoutInstance.createPayment({
+              flow: 'vault',
+              billingAgreementDescription: 'My agreement description',
+              // enableShippingAddress: true,
+              // shippingAddressEditable: false,
+              // shippingAddressOverride: {
+              //   recipientName: 'Scruff McGruff',
+              //   line1: '1234 Main St.',
+              //   line2: 'Unit 1',
+              //   city: 'Chicago',
+              //   countryCode: 'US',
+              //   postalCode: '60652',
+              //   state: 'IL',
+              //   phone: '123.456.7890'
+              // }
+            });
+          },
+
+          onAuthorize: function (data) {
+            var VAULT_URL = '/api/paypal/ecbt/';
+            var rtTypes = document.getElementsByName("rtTypes");
+            rtTypes.forEach(function(rt_type,i){
+              if(rt_type.checked){
+                   VAULT_URL += rt_type.value;
+                }
+            });
+           console.log(VAULT_URL);
+            return paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {
+              var executeValues = {
+                nonce: payload.nonce
+                //fulldata:"all"
+              };
+              return paypal.request.post(VAULT_URL, executeValues).then(function (res) {
+                console.log(res);
+                    window.alert('RT completed ');
+              });
+            });
+          },
+
+          onCancel: function (data) {
+            console.log('checkout.js payment cancelled', JSON.stringify(data, 0, 2));
+          },
+
+          onError: function (err) {
+            console.error('checkout.js error', err);
+          }    
+        
+        }, '#paypal-button-container-bt-rt');
+      });
+});
+
+</script>
+ </body>
+
+</html>

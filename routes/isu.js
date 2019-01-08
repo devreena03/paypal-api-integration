@@ -1,6 +1,6 @@
 var express = require('express');
 var https = require("https");
-var prefill_payload = require('../payload/prefill-payload');
+var prefill_payload = require('../payload/prefill-payload-new');
 
 var router = express.Router();
 var sanboxUrl = 'api.sandbox.paypal.com';
@@ -21,6 +21,7 @@ router.get('/access-token', function(req, res){
 
 router.get('/create-referal', function(req, res){
     var trackingId = 'track002';
+
     var options = {
         host: sanboxUrl,
         path: '/v1/customer/partner-referrals',
@@ -45,8 +46,6 @@ router.get('/create-referal', function(req, res){
             });
         });
         console.log(prefill_payload);
-        prefill_payload.requested_capabilities[0].api_integration_preference.rest_third_party_details.partner_client_id = clientId;
-        prefill_payload.customer_data.partner_specific_identifiers[0].value = trackingId;
         http_request.write(JSON.stringify(prefill_payload));
         http_request.end();
     });

@@ -34,13 +34,21 @@ app.get("/ec-bt", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-bt.html');
 });
 
+app.get("/ec-fullpage", function(req, res){
+	res.sendFile(__basedir + '/public/view/ec-fullpage.html');
+});
+
+app.get("/bt-rt", function(req, res){
+	res.sendFile(__basedir + '/public/view/bt-rt.html');
+});
+
 app.get("/downloads", function(req, res){
 	res.sendFile(__basedir + '/public/view/app/downloads.html');
 });
 
-// app.get("/isu", function(req, res){
-// 	res.sendFile(__basedir + '/public/view/isu.html');
-// });
+app.get("/isu", function(req, res){
+	res.sendFile(__basedir + '/public/view/isu.html');
+});
 
 // app.get("/p2p", function(req, res){
 // 	res.sendFile(__basedir + '/public/view/p2p.html');

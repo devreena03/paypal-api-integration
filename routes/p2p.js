@@ -1,6 +1,5 @@
 var express = require('express');
 var request = require('request');
-var https = require("https");
 var router = express.Router();
 
 var access_token = {
