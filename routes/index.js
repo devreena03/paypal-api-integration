@@ -34,6 +34,10 @@ app.get("/ec-bt", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-bt.html');
 });
 
+app.get("/apm", function(req, res){
+	res.sendFile(__basedir + '/public/view/ec-apm.html');
+});
+
 app.get("/ec-fullpage", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-fullpage.html');
 });
