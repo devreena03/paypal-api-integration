@@ -54,6 +54,10 @@ app.get("/wps", function(req, res){
 	res.sendFile(__basedir + '/public/view/wps.html');
 });
 
+app.get("/webhook", function(req, res){
+	res.sendFile(__basedir + '/public/view/webhooks.html');
+});
+
 // app.get("/p2p", function(req, res){
 // 	res.sendFile(__basedir + '/public/view/p2p.html');
 // });
