@@ -6,14 +6,20 @@
   <title>EC BT demo</title>
 
   <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
-  <script src="https://js.braintreegateway.com/web/3.25.0/js/client.min.js"></script>
-  <script src="https://js.braintreegateway.com/web/3.25.0/js/paypal-checkout.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.41.0/js/client.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.41.0/js/paypal-checkout.min.js"></script>
 
 </head>
 
 <body>
-     
-     <div style="text-align: center; margin-top: 10%">
+     <span >
+        <input type="checkbox" id="details" value="details" checked> <label>Detailed Input as EC_BT Specification</label>
+         <div>
+         <textarea rows="30" cols="50" id="input"></textarea>
+         </div>
+         <div id="paypal-button-container-ecbt"></div>
+     </span>
+     <!-- <span style="text-align: center; margin-top: 10%">
       <label>ECBT-Web integration</label>
           <div>
               Amount: <input type="text" id="amountId" value="1" size="4"/>
@@ -22,11 +28,15 @@
                           <option value="USD" selected="true">USD</option>
                        </select>
           </div>
-          <br><br>
+          <br>
+            <input type="hidden" id="details" value="details">
+          <br>
       
           <div id="paypal-button-container-ecbt"></div>
-      </div>
+        </span> -->
 <script>
+  var amount = "1.00";
+  var currency = "USD";
 paypal.Button.render({
     braintree: braintree,
     client: {
@@ -34,8 +44,8 @@ paypal.Button.render({
       production: paypal.request.get('/api/paypal/ecbt/client_token')
     },
     env: 'sandbox', //'production'/'sandbox'
+    locale: "en_US",
     commit: true,
-    locale:"th_TH",
     style: {
 				layout: 'vertical',  // horizontal | vertical
 				size:   'medium',    // medium | large | responsive
@@ -44,11 +54,21 @@ paypal.Button.render({
 				},
   
     payment: function (data, actions) {
-      return actions.braintree.create({
-        flow: 'checkout', // Required
-        amount: document.getElementById("amountId").value, // Required
-        currency: document.getElementById("selectedCurrency").value // Required
-      });
+      if(document.getElementById("details").checked){
+        var input = JSON.parse(document.getElementById("input").value);
+        console.log(input);
+        amount = input.amount;
+        currency = input.currency;
+        return actions.braintree.create(input);
+      } else {
+        amount = document.getElementById("amountId").value;
+        currency = document.getElementById("selectedCurrency").value;
+        return actions.braintree.create({
+          flow: 'checkout', // Required
+          amount: amount, // Required
+          currency:  currency// Required
+        });
+      }
     },
   
     onAuthorize: function (payload) {
@@ -56,8 +76,8 @@ paypal.Button.render({
         var EXECUTE_URL = '/api/paypal/ecbt/checkout';
         var executeValues = {
             nonce: payload.nonce,
-            amount:  document.getElementById("amountId").value,
-            currency: document.getElementById("selectedCurrency").value
+            amount:  amount,
+            currency: currency
         };
         return paypal.request.post(EXECUTE_URL, executeValues)
             .then(function (res) {

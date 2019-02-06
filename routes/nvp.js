@@ -7,6 +7,10 @@ var config = "USER=india-business_api1.test.com"
            +"&PWD=5SFQN9EZKPXSVV6E"
            +"&SIGNATURE=A-l7Ht3gCcGUz87UP0AOBYyGo3TWAbZZRsSrrMHF7A9L42QxgKZ6WDZc";
 
+var config_apm = "USER=apac_apmtesting_api1.pp.com"
+           +"&PWD=LQ6EVZL6T6J9SKKC"
+           +"&SIGNATURE=Ak33Bb20d66-xeniAAEszr4UfZCVAc7FZAzoVtLENM2tUk-C0cVIz-q3";           
+
 var setExpress = "METHOD=SetExpressCheckout"
                 +"&VERSION=109.0"
                 +"&PAYMENTREQUEST_0_PAYMENTACTION=SALE"
