@@ -86,6 +86,10 @@ app.get('/apple-app-site-association', function(req, res, next) {
 				{
 				"appID": "87GA28WQTJ.com.reena.ps-demo1",
 				"paths": ["/ps-demo"]
+				},
+				{
+				"appID": "87GA28WQTJ.com.reena.webview-session",
+				"paths": ["/webview-session"]
 				}]
 			}
 	}
