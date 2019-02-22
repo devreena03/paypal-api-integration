@@ -102,10 +102,10 @@ router.get('/web/success', function(req, res){
         console.log(response.body.id);
         if(response.statusCode == 200 && response.body.state == "approved"){
             res.status(response.statusCode);
-            res.redirect('/ec-fullpage?operation=success');      
+            res.redirect('/ec-fullpage?operation=success&paymentId='+req.query.paymentId);      
         } else {
             res.status(response.statusCode);
-            res.redirect('/ec-fullpage?operation=failed');    
+            res.redirect('/ec-fullpage?operation=failed&paymentId='+req.query.paymentId);    
         }      
         res.end();
     })
