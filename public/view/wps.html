@@ -1,5 +1,13 @@
 
+<!DOCTYPE html>
 
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./js/wps.js"></script>
+</head>
+
+<body onload="pageLoad()">
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 <div style="text-align: center; margin-top: 10%">
 <label><h2>Sandbox WPS payment</h2></label>
@@ -8,8 +16,8 @@
  <input type="hidden" name="business" value="india-business@test.com">
  <!-- Specify a Buy Now button. -->
  <input type="hidden" name="cmd" value="_xclick">
- <input type="hidden" name="return" value="https://paypal-integration-sample.herokuapp.com/wps?operation=success">
- <input type="hidden" name="cancel_return" value="https://paypal-integration-sample.herokuapp.com/wps?operation=cancel">
+ <input type="hidden" name="return" value="http://localhost:8080/wps?operation=success">
+ <input type="hidden" name="cancel_return" value="http://localhost:8080/wps?operation=cancel">
  <!-- Specify details about the item that buyers will purchase. -->
  <input type="hidden" name="item_name" value="Hot Sauce-12oz. Bottle">
 	<div>
@@ -26,3 +34,5 @@
 <img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
 </div>	
 </form>
+</body>
+</html>

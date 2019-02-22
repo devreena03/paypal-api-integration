@@ -74,10 +74,10 @@
     },
     onAuthorize: function(data, actions) {
       console.log(data);
-     // var paymentID = data.paymentID ? data.paymentID : extractPaymentIdFromReturnURL(data.returnUrl);
+      var paymentID = data.paymentID ? data.paymentID : extractPaymentIdFromReturnURL(data.returnUrl);
       console.log(data.paymentID);
       return actions.request.post('/api/paypal/ec/execute-payment/', {
-        paymentID: data.paymentID,
+        paymentID: paymentID,
         payerID:   data.payerID
       }).then(function(res) {
           console.log(res);
