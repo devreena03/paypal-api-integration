@@ -1,3 +1,19 @@
+function pageLoad() {
+  var queryStr = window.location.search;
+  if(queryStr){
+    var paramPairs = queryStr.substr(1).split('&');
+    var params = {};
+    for (var i = 0; i < paramPairs.length; i++) {
+        var parts = paramPairs[i].split('=');
+        params[parts[0]] = parts[1];
+    }
+    if(params.operation && params.operation==="success"){
+      alert("Payment completed with Payment-id: "+params.paymentId);
+    } else if(params.operation && params.operation==="failed"){
+      alert("Payment failed with Payment-id: "+params.paymentId);
+    } 
+  } 
+}
 
 function createPayment(){
   var body = {
@@ -15,6 +31,7 @@ function createPayment(){
     ],
     redirect_urls : {
       "return_url": "https://paypal-integration-sample.herokuapp.com/api/paypal/ec/web/success",
+     //"return_url": "http://localhost:8080/api/paypal/ec/web/success",
       "cancel_url": "http://www.hawaii.com"
     }
    };

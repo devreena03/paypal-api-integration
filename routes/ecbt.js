@@ -69,17 +69,16 @@ app.post("/checkout", function (req, res) {
   console.log('checkout');
     var nonce = req.body.nonce;
     var saleRequest = {
-        amount: req.body.amount,
+        amount: req.body.amount?req.body.amount:"1.00",
         merchantAccountId: req.body.currency?req.body.currency:"INR",
         paymentMethodNonce: nonce,
         channel: "BT_TEST_SP",
-       // orderId : "ABX1010987",
-       
+       // orderId : "ABX1010987",      
         options: {
           paypal: {
             customField: "customField Paypal test recipt",
             description: "description Paypal test recipt",
-            payeeId: "YR95EED6QZSU2",
+           // payeeId: "YR95EED6QZSU2",
            // payeeEmail: "reena-us-business@test.com"
           },
           submitForSettlement: true

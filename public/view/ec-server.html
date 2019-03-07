@@ -75,15 +75,17 @@
     onAuthorize: function(data, actions) {
       console.log(data);
       var paymentID = data.paymentID ? data.paymentID : extractPaymentIdFromReturnURL(data.returnUrl);
+      console.log(data.paymentID);
       return actions.request.post('/api/paypal/ec/execute-payment/', {
         paymentID: paymentID,
         payerID:   data.payerID
       }).then(function(res) {
           console.log(res);
-          window.alert('Payment Complete!');
+          alert('Payment Complete!');
         });
     }
   }, '#paypal-server-button');
+
   function extractPaymentIdFromReturnURL(returnUrl){
     var obj = {};  
     var arr = returnUrl.split("?")[1].split("&");

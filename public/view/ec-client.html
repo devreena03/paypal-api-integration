@@ -62,13 +62,14 @@
             onAuthorize: function(data, actions) {
                 console.log(data);
                 return actions.payment.execute().then(function() {
-                    window.alert('Payment Complete!');
+                    console.log('Payment Complete!');
+                    alert('Payment Complete!');
                 });
             },
             onCancel: function(data) {
                 console.log(data);
                 alert("User cancelled the payment");
-                },
+            },
             onError: function(err) {
                 console.log(err);
                 alert("Some error occurred "+ JSON.stringify(err));
