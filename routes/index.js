@@ -70,10 +70,12 @@ app.get("/callback-api/server", function(req, res){
 	res.sendFile(__basedir + '/public/view/callback-api-server.html');
 });
 
+
+
 // app.get("/p2p", function(req, res){
 // 	res.sendFile(__basedir + '/public/view/p2p.html');
 // });
-
+//iOS universal linking
 app.get('/apple-app-site-association', function(req, res, next) {
 	console.log("inside universal link new");
 	var applinks = {
@@ -109,4 +111,8 @@ app.get('/apple-app-site-association', function(req, res, next) {
 //    res.send('{"applinks":{"apps":[],"details":[{"appID":"87GA28WQTJ.com.reena.ps-demo1","paths":["*"]}]}}');   
 // });
 
+//Android APP linking
+app.get("/nativexo-android", function(req, res){
+	res.sendFile(__basedir + '/public/view/app/thankyou.html');
+});
 module.exports = app;
