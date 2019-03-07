@@ -1,0 +1,9 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "demo.reena.com.nativexodemo",
+      "sha256_cert_fingerprints":
+      ["6B:D1:4B:97:DE:A7:07:21:A0:98:EC:8E:02:DC:A0:45:42:0D:38:6E:FE:78:05:04:9D:65:75:F4:2B:C3:FE:3C"]
+    }
+  }]

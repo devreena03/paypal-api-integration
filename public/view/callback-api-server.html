@@ -1,0 +1,139 @@
+<html>
+<head>
+   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+
+<body>
+
+        <div style="text-align: center; margin-top: 10%">
+                <h3>Callback API with SPB - Server side and Payment v1 API</h3>
+                <div>
+                    Amount: <input type="text" id="amountId" value="1" size="4"/>
+                    Currency : <select id="selectedCurrency">
+                                <option value="INR">INR</option>
+                                <option value="USD" selected="true">USD</option>
+                             </select>
+                </div>
+                <br><br>
+            
+               <div id="paypal-button-container"></div>
+            </div>	
+
+<script>
+ 
+    paypal.Button.render({
+    "env": "sandbox",
+    "style": {
+        "layout": "vertical",
+        "size": "medium"
+    },
+    "commit": true,
+    payment: function(data, actions) {
+      console.log(data);
+      var body = {
+        intent: "sale",
+        payer: {
+             "payment_method": "paypal"
+        },
+        transactions: [
+        {
+            amount: {
+                total: document.getElementById("amountId").value, 
+                currency: document.getElementById("selectedCurrency").value,
+                details : {
+                    subtotal: document.getElementById("amountId").value
+                }
+            },
+            item_list: {
+                items: [
+                    {
+                        name: 'Hat',
+                        description: 'A brown hat with some flair!',
+                        sku: '8R0WNH4T',                                         
+                        price: document.getElementById("amountId").value, 
+                        quantity: '1',
+                        currency: document.getElementById("selectedCurrency").value,
+                    },
+                ]
+            },
+        }],
+        redirect_urls : {
+          "return_url": "http://www.amazon.com",
+          "cancel_url": "http://www.hawaii.com"
+        }
+        
+       };
+        var Create_URL = '/api/paypal/ec/create-payment/';
+        console.log(body);
+        api_action = actions;
+        return actions.request({
+            method: 'post',
+            url: Create_URL,
+            json: body
+            
+        }) .then(function(res) {
+            console.log(res);
+            return res.id;
+        });
+    },
+    onShippingChange: function(data, actions) {
+        console.log("inside onShippingChange");
+        console.log(data);
+        if (data.shipping_address.country_code !== 'US') {
+            return actions.reject();
+        }
+        if (data.shipping_address.state == 'CA') {
+            return patchShippingCost('0.03');
+        }
+        return patchShippingCost('0.02');
+        function patchShippingCost(amount) { 
+            console.log("inside patchShippingCost");
+            const parsedPrice = parseFloat(document.getElementById("amountId").value);
+            const parsedShipping = parseFloat(amount);
+            const total = (parsedPrice + parsedShipping).toString();
+            var body = [
+            {
+                op: 'replace',
+                path: '/transactions/0/amount',
+                value: {
+                    total,
+                    currency: document.getElementById("selectedCurrency").value,
+                    details: {
+                        subtotal: document.getElementById("amountId").value,
+                        shipping: amount
+                    }
+                }
+            }
+            ];
+            return fetch('/api/paypal/ec/payment/'+data.paymentID, {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(body)
+                }).then(r => r.json());
+        };     
+    },
+    onAuthorize: function(data, actions) {
+      console.log(data);
+      return actions.request.post('/api/paypal/ec/execute-payment/', {
+        paymentID:  data.paymentID,
+        payerID:   data.payerID
+      }).then(function(res) {
+          console.log(res);
+          window.alert('Payment Complete!');
+        });
+    },
+    "onCancel": function() {
+                        alert("User cancelled the payment");
+                    },
+    "onError": function(err) {
+                        console.log("Error occurred "+ err);
+                        alert("Error occurred "+ err.message);
+                    }
+}
+    ,'#paypal-button-container');
+</script>
+    
+</body>
+</html>

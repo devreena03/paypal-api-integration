@@ -82,6 +82,32 @@ router.get('/payment/:id', function(req, res){
         });
     });
 });
+
+router.patch('/payment/:id', function(req, res){
+    console.log("payment id  :"+req.params.id);
+    console.log(req.body);
+    var options = {
+        uri: sanboxUrl + '/v1/payments/payment/'+req.params.id,
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: req.body,
+        json: true
+    };
+    initialize().then(function(access_token){
+        options.headers.Authorization = 'Bearer '+access_token;
+        request(options, function (err, response) {
+            if (err) {
+                console.error(err);
+                return res.sendStatus(500);
+            }
+            console.log(response.body);
+            res.json(response.body);
+        });
+    });
+});
+
 //comming from checkout.js execute 
 router.post('/execute-payment', function(req, res){
     executePayment(req.body,function(response){

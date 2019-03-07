@@ -62,6 +62,14 @@ app.get("/webhook", function(req, res){
 	res.sendFile(__basedir + '/public/view/webhooks.html');
 });
 
+app.get("/callback-api", function(req, res){
+	res.sendFile(__basedir + '/public/view/callback-api.html');
+});
+
+app.get("/callback-api/server", function(req, res){
+	res.sendFile(__basedir + '/public/view/callback-api-server.html');
+});
+
 // app.get("/p2p", function(req, res){
 // 	res.sendFile(__basedir + '/public/view/p2p.html');
 // });
