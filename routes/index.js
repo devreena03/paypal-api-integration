@@ -38,6 +38,10 @@ app.get("/apm", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-apm.html');
 });
 
+app.get("/ecbt-apm", function(req, res){
+	res.sendFile(__basedir + '/public/view/ecbt-localpayment.html');
+});
+
 app.get("/ec-fullpage", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-fullpage.html');
 });
@@ -70,6 +74,9 @@ app.get("/callback-api/server", function(req, res){
 	res.sendFile(__basedir + '/public/view/callback-api-server.html');
 });
 
+app.get("/rt", function(req, res){
+	res.sendFile(__basedir + '/public/view/rt.html');
+});
 
 
 // app.get("/p2p", function(req, res){

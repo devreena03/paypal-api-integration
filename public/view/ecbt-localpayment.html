@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <script src="https://js.braintreegateway.com/web/3.38.0-beta.2/js/client.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.38.0-beta.2/js/local-payment.min.js"></script>
+</head>
+
+<body>
+
+    <button id="custom-button">Custom</button>
+    <script>
+        var customButton = document.getElementById('custom-button');
+        // Create a client.
+        // Use Soft Access Token of ECBT Account
+        fetch("/api/paypal/ecbt/client_token").then(data => data.text()).then(data => {
+            braintree.client.create({
+                "authorization": data
+            }).then(function (clientInstance) {
+                console.log(clientInstance);
+                return braintree.localPayment.create({
+                    client: clientInstance
+                });
+            }).then(function (localPaymentInstance) {
+                // Use the localPaymentInstance to start the payment flow
+                console.log(localPaymentInstance);
+                function createLocalPaymentClickListener(type) {
+                    return function (event) {
+                        event.preventDefault();
+
+                        localPaymentInstance.startPayment({
+                            paymentType: 'iDEAL',
+                            amount: '3.00',
+                            currencyCode: 'EUR',
+                            shippingAddressRequired: true,
+                            email: 'apm_test_arvind@test.com',
+                            phone: '612345678',
+                            givenName: 'Hello',
+                            surname: 'World',
+                            address: {
+                                "streetAddress": "Rietdijkstraat 96",
+                                "extendedAddress": "",
+                                "locality": "Netherlands",
+                                "postalCode": "3151 GK",
+                                "region": "Holland",
+                                "countryCode": "NL"
+                            },
+
+                            onPaymentStart: function (data, start) {
+                                // Call start to initiate the popup
+                                start();
+                            }
+                        }).then(function (payload) {
+                            // Send the nonce to your server to create a transaction
+                            fetch("/api/paypal/ecbt/checkout", {
+                                method: 'post',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    amount: '3.00',
+                                    nonce: payload.nonce,
+                                    currency: "EUR"
+                                })
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    console.log("success: ", data);
+                                })
+                                .catch(function (error) {
+                                    console.error(error);
+                                });
+
+
+                        }).catch(function (err) {
+                            if (err.code === 'LOCAL_PAYMENT_POPUP_CLOSED') {
+                                console.error('Customer closed Local Payment popup.');
+                                alert("popup closed by customer")
+                            } else {
+                                console.error('Error!', err);
+                                alert("error")
+                            }
+                        });
+                    };
+                }
+                customButton.addEventListener('click', createLocalPaymentClickListener('ideal'));
+
+            });
+        });          
+    </script>
+
+</body>
+
+</html>

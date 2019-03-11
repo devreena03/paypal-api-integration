@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+
+<body>
+    <div id="paypal-button-container"></div>
+
+    <script>
+        paypal.Button.render({
+
+            env: 'sandbox', // sandbox | production
+            // Specify the style of the button
+            style: {
+                label: 'generic', // checkout | credit | pay
+                size: 'small',    // small | medium | responsive
+                shape: 'rect',     // pill | rect
+                color: 'gold'      // gold | blue | silver
+            },
+
+            // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
+
+            // payment() is called when the button is clicked
+            payment: function (resolve, reject) {
+
+                // creates a billing agreement token
+                return fetch('/api/paypal/rt/create-agreement-token', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                }).then(res => res.json())
+                    .then(res => {
+                        console.log(res);
+                        var token = res['token_id']
+                        return token;
+                    })
+            },
+
+            // onAuthorize() is called when the buyer approves the aggrement
+            onAuthorize: function (data, actions) {
+
+                // Replace your create the agreement url below 
+                return fetch('/api/paypal/rt/create-agreement', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: data.billingToken })
+                }).then(res => res.json())
+                    .then(function (details) {
+                        console.log('Create Agreement Successful');
+                        console.log(details);
+                        console.log('Agreement ID' + details.id)
+                    })
+            }
+
+        }, '#paypal-button-container');
+    </script>
+</body>
+
+</html>

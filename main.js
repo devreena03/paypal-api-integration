@@ -10,6 +10,7 @@ var orderv1 = require('./routes/orderv1');
 var nvp = require('./routes/nvp');
 var p2p = require('./routes/p2p');
 var webhook = require('./routes/webhook');
+var rt = require('./routes/rt');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/api/paypal/order/v1',orderv1);
 app.use('/api/paypal/nvp',nvp);
 app.use('/api/paypal/p2p',p2p);
 app.use('/webhook',webhook);
+app.use('/api/paypal/rt',rt);
 
 var port = process.env.PORT || '8080';
 app.listen(port, function(){

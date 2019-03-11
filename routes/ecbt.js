@@ -5,7 +5,8 @@ var braintree = require("braintree");
 var app = express.Router();
 
 var gateway = braintree.connect({
- accessToken: "access_token$sandbox$vw8dh7hp79kqtr63$5bc87804a77eaafb170382a7a5b45c7d" // india-bussiness-bt@test.com
+  accessToken: "access_token$sandbox$cmsjrxqjrjzbcz2r$3ea9b37593fb87eccaa70d92ddf6babf" //apac_apmtesting@pp.com
+// accessToken: "access_token$sandbox$vw8dh7hp79kqtr63$5bc87804a77eaafb170382a7a5b45c7d" // india-bussiness-bt@test.com
   //accessToken: "access_token$sandbox$vghrtfwbgxjj4bsr$3c45a5edfe5a2ceb33fe7358ed5849f6" // india-bussiness-bt1@test.com
 });
 
@@ -65,8 +66,69 @@ app.get("/order/:id", function(req, res){
   });
 });
 
+app.post("/partialpay", function (req, res) {
+  console.log('partialpay');
+    console.log(req.body.amount);
+    console.log(req.body.id);
+    gateway.transaction.submitForPartialSettlement(req.body.id, req.body.amount, function (err, result) {
+      if (err) {
+        res.status(500);
+        console.log(err);
+        res.send(err.message);
+      } if (result.success) {
+        console.log(JSON.stringify(result));
+        console.log('payment sucess with result.transaction.id:   '+ result.transaction.id);
+        res.send({
+          id: result.transaction.id,
+          status: result.transaction.status,
+          success: result.success,
+          amount: result.transaction.amount,
+          currency: result.transaction.merchantAccountId,
+          payment_id: result.transaction.paypal.paymentId,
+          debug_id: result.transaction.paypal.debugId,
+          payer_email: result.transaction.paypal.payerEmail
+        });
+      } else {
+        console.log(JSON.stringify(result.errors));
+        res.sendStatus(500);
+      }
+
+    });
+})
+
+app.post("/full-pay", function (req, res) {
+  console.log('full pay');
+    console.log(req.body.amount);
+    console.log(req.body.id);
+    gateway.transaction.submitForSettlement(req.body.id, req.body.amount, function (err, result) {
+      if (err) {
+        res.status(500);
+        console.log(err);
+        res.send(err.message);
+      } if (result.success) {
+        console.log(JSON.stringify(result));
+        console.log('payment sucess with result.transaction.id:   '+ result.transaction.id);
+        res.send({
+          id: result.transaction.id,
+          status: result.transaction.status,
+          success: result.success,
+          amount: result.transaction.amount,
+          currency: result.transaction.merchantAccountId,
+          payment_id: result.transaction.paypal.paymentId,
+          debug_id: result.transaction.paypal.debugId,
+          payer_email: result.transaction.paypal.payerEmail
+        });
+      } else {
+        console.log(JSON.stringify(result.errors));
+        res.sendStatus(500);
+      }
+
+    });
+})
+
 app.post("/checkout", function (req, res) {
   console.log('checkout');
+  var submitForSettlement = req.body.submitForSettlement ? req.body.submitForSettlement : true;
     var nonce = req.body.nonce;
     var saleRequest = {
         amount: req.body.amount?req.body.amount:"1.00",
@@ -81,7 +143,7 @@ app.post("/checkout", function (req, res) {
            // payeeId: "YR95EED6QZSU2",
            // payeeEmail: "reena-us-business@test.com"
           },
-          submitForSettlement: true
+          submitForSettlement: submitForSettlement
         }
       };
       
@@ -91,9 +153,18 @@ app.post("/checkout", function (req, res) {
           console.log(err);
           res.send(err.message);
         } else if (result.success) {
-          console.log(result);
-          console.log('payment sucess with result.transaction.id'+ result.transaction.id);
-          res.send("Success! Transaction ID: " + result.transaction.id);
+          console.log(JSON.stringify(result));
+          console.log('payment sucess with result.transaction.id:   '+ result.transaction.id);
+          res.send({
+            id: result.transaction.id,
+            status: result.transaction.status,
+            success: result.success,
+            amount: result.transaction.amount,
+            currency: result.transaction.merchantAccountId,
+            payment_id: result.transaction.paypal.paymentId,
+            debug_id: result.transaction.paypal.debugId,
+            payer_email: result.transaction.paypal.payerEmail
+          });
         } else {
           console.log(result);
           res.status(500);
@@ -229,7 +300,7 @@ app.post("/autopay", function (req, res) {
             });
           } 
         } else {
-          console.log(result);
+          console.log(JSON.stringify(result));
           res.status(500);          
           res.send("Error:  " + result.message);
         }
