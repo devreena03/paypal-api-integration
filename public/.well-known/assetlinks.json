@@ -1,9 +1,10 @@
+
 [{
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "demo.reena.com.nativexodemo",
-      "sha256_cert_fingerprints":
-      ["6B:D1:4B:97:DE:A7:07:21:A0:98:EC:8E:02:DC:A0:45:42:0D:38:6E:FE:78:05:04:9D:65:75:F4:2B:C3:FE:3C"]
-    }
-  }]
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "demo.reena.com.nativexodemo",
+    "sha256_cert_fingerprints":
+    ["56:D8:AD:AB:19:8C:1E:C6:F1:1D:62:04:C2:4C:19:D6:E6:18:75:B4:95:A8:62:E6:DB:D3:EE:2C:A3:63:D6:FB"]
+  }
+}]
