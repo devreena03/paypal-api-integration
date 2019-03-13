@@ -6,6 +6,15 @@ app.get("/", function(req, res){
 	res.sendFile(__basedir + '/public/view/index.html');
 });
 
+app.get("/pd/ec-server", function(req, res){
+	res.sendFile(__basedir + '/public/view/pd/ec-server.html');
+});
+
+app.get("/pd/ec-fullpage", function(req, res){
+	res.sendFile(__basedir + '/public/view/pd/ec-fullpage.html');
+});
+
+
 app.get("/ec-client", function(req, res){
 	res.sendFile(__basedir + '/public/view/ec-client.html');
 });

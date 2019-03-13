@@ -12,6 +12,8 @@ var p2p = require('./routes/p2p');
 var webhook = require('./routes/webhook');
 var rt = require('./routes/rt');
 
+var ec_pd = require('./routes/pd/ec');
+
 var app = express();
 
 global.__basedir = __dirname;
@@ -33,6 +35,8 @@ app.use('/api/paypal/nvp',nvp);
 app.use('/api/paypal/p2p',p2p);
 app.use('/webhook',webhook);
 app.use('/api/paypal/rt',rt);
+
+app.use('/api/paypal/ec/pd', ec_pd);
 
 var port = process.env.PORT || '8080';
 app.listen(port, function(){

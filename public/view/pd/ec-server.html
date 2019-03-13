@@ -11,10 +11,9 @@
 <div style="text-align: center; margin-top: 10%">
     <h3>SPB - Server side implementation with Payment API</h3>
 	<div>
-		Amount: <input type="text" id="amountId" value="1" size="4"/>
+		Amount: <input type="text" id="amountId" value="10" size="4"/>
 		Currency : <select id="selectedCurrency">
-                    <option value="INR">INR</option>
-                    <option value="USD" selected="true">USD</option>
+                    <option value="INR" selected="true">INR</option>
 				 </select>
 	</div>
 	<br><br>
@@ -24,9 +23,9 @@
 
 <script>
   paypal.Button.render({
-    env: 'sandbox', 
+    env: 'production', 
     commit: true,
-	
+    locale: 'en_IN',
     style: {
         layout: 'vertical',  // horizontal | vertical
         size:   'medium',    // medium | large | responsive
@@ -60,7 +59,7 @@
         }
         
        };
-        var Create_URL = '/api/paypal/ec/create-payment/';
+        var Create_URL = '/api/paypal/ec/pd/create-payment/';
         console.log(body);
         
         return actions.request({
@@ -77,7 +76,7 @@
       console.log(data);
       var paymentID = data.paymentID ? data.paymentID : extractPaymentIdFromReturnURL(data.returnUrl);
       console.log(data.paymentID);
-      return actions.request.post('/api/paypal/ec/execute-payment/', {
+      return actions.request.post('/api/paypal/ec/pd/execute-payment/', {
         paymentID: paymentID,
         payerID:   data.payerID
       }).then(function(res) {
