@@ -3,10 +3,11 @@ var request = require('request');
 var initialize = require("./config");
 
 var router = express.Router();
-var sanboxUrl = 'https://api.sandbox.paypal.com';
+var sanboxUrl = 'https://api.paypal.com';
 
 router.post('/create-payment', function(req, res){
     console.log("create");
+    req.body.experience_profile_id = process.env.EXPERIENCE_ID;
     var options = {
         uri: sanboxUrl + '/v1/payments/payment',
         method: 'POST',
