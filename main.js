@@ -11,6 +11,7 @@ var nvp = require('./routes/nvp');
 var p2p = require('./routes/p2p');
 var webhook = require('./routes/webhook');
 var rt = require('./routes/rt');
+var ipn = require('./routes/ipn');
 
 var ec_pd = require('./routes/pd/ec');
 
@@ -35,6 +36,7 @@ app.use('/api/paypal/nvp',nvp);
 app.use('/api/paypal/p2p',p2p);
 app.use('/webhook',webhook);
 app.use('/api/paypal/rt',rt);
+app.use('/ipn',ipn);
 
 app.use('/api/paypal/ec/pd', ec_pd);
 

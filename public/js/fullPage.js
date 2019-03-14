@@ -17,6 +17,9 @@ function pageLoad() {
 
 function createPayment(){
   var body = {
+      application_context: {
+        locale : "en_IN"
+      },
     intent: "sale",
     payer: {
          "payment_method": "paypal"
