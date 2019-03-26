@@ -17,13 +17,14 @@ router.post('/create-payment', function(req, res){
         json: true            
     };
     initialize().then(function(access_token){
+        console.log(access_token);
         options.headers.Authorization = 'Bearer '+access_token;
         request(options, function (err, response) {
             if (err) {
                 console.error(err);
                 return res.sendStatus(500);
             }
-            console.log(response);
+            console.log(response.body);
             res.json(response.body);
         });
     }, function(err){

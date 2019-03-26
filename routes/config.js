@@ -15,7 +15,7 @@ var initialize = function(){
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic '+basicAuth
         },
-        body: "grant_type=client_credentials&response_type=token&return_authn_schemes=true"
+        body: "grant_type=client_credentials&response_type=token&return_authn_schemes=true&ignoreCache=true"
             
     }; 
     return new Promise(function(resolve, reject) { 

@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <!-- <script src="https://www.paypal.com/sdk/js?intent=capture&amp;commit=true&amp;vault=false&amp;components=buttons&amp;locale=en_US&amp;debug=true&amp;currency=INR&amp;buyer-country=IN&amp;client-id=AcuuDiWgApKeQx7oY6wuGh2kbAIzy8B1NrruTzVl_vn3Dqv7a-EYGKlHRMb70fjc3eX3EP5rlM3VUp8g"
+        data-client-token=""></script> -->
+
+        <script src="https://www.paypal.com/sdk/js?components=buttons&amp;locale=en_US&amp;currency=INR&amp;buyer-country=IN&amp;client-id=AcuuDiWgApKeQx7oY6wuGh2kbAIzy8B1NrruTzVl_vn3Dqv7a-EYGKlHRMb70fjc3eX3EP5rlM3VUp8g"
+        data-client-token=""></script>
+
+</head>
+
+<body>
+        <div style="text-align: center; margin-top: 10%">
+                <h3>Payment SDK - Client side implementation with Order v2</h3>
+                <div>
+                    Amount: <input type="text" id="amountId" value="1" size="4"/>
+                    Currency : <select id="selectedCurrency">
+                                <option value="INR" selected="true">INR</option>
+                                <!-- <option value="USD" >USD</option> -->
+                             </select>
+                </div>
+                <br><br>
+            
+               <div style="width: 10%; margin:auto" id="paypal-button-container"></div>
+            </div>
+
+    <script>
+        paypal.Buttons({
+            style: {
+                color: 'blue',
+                layout: 'vertical',
+                shape: 'rect',
+                label: 'checkout'
+            },
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    "application_context": {
+                        "shipping_preference": "GET_FROM_FILE"
+                    },
+                    "purchase_units": [
+                        {
+                            "amount": {
+                                "value": document.getElementById('amountId').value,
+                                "currency_code": document.getElementById('selectedCurrency').value
+                            }
+                        }
+                    ]
+                }
+                );
+            },
+            // Wait for the payment to be authorized by the customer
+            onApprove: function (data, actions) {
+                return actions.order.get().then(function (details) {
+                    console.log('approved ', details);
+                    return actions.order.capture();
+                }).then(function (result) {
+                        console.log('Payment successful');
+                        console.log(result);
+                        alert('Payment Successful')
+
+                    })
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+</body>
+
+</html>
