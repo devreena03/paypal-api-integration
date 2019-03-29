@@ -13,6 +13,28 @@ var config = {
   };
 firebase.initializeApp(config);
 
+router.get('/notifications/:username', function (req, res) {
+  
+  console.log("HTTP Get Request");
+	var ref = firebase.database().ref("/reena-webhooks");
+    var arr = [];
+    ref.orderByChild("username").equalTo(req.params.username).on("value", function(snapshot) {
+          snapshot.forEach((child) => {
+              arr.push(child.val());
+          });          
+          var finalArr=  arr.slice().sort(function(a, b) {
+              return (new Date(a.create_time) - new Date(b.create_time))*-1; 
+          });
+
+					res.json(finalArr);
+					ref.off("value");
+				}, 
+			  function (errorObject) {
+					console.log("The read failed: " + errorObject.code);
+					res.send("The read failed: " + errorObject.code);
+			 })
+});
+
 router.get('/notifications', function (req, res) {
   
   console.log("HTTP Get Request");
