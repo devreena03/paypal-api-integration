@@ -52,7 +52,7 @@ function createPayment(){
           var link = data.links[i];
           if(link.rel == "approval_url"){
             console.log(link.href);
-            window.location = link.href.replace(/^.*token=/, "https://www.paypal.com/checkoutweb/signup?token=");
+            window.location = link.href.replace(/^.*token=/, "https://www.paypal.com/checkoutweb/signup?locale.x=en_IN&country.x=IN&token=");
             break;
           }
         }      
