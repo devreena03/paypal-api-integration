@@ -7,6 +7,7 @@ var sanboxUrl = 'https://api.sandbox.paypal.com';
 
 router.post('/create-payment', function(req, res){
     console.log("create");
+    console.log(req.headers);
     var options = {
         uri: sanboxUrl + '/v1/payments/payment',
         method: 'POST',
@@ -19,6 +20,12 @@ router.post('/create-payment', function(req, res){
     initialize().then(function(access_token){
         console.log(access_token);
         options.headers.Authorization = 'Bearer '+access_token;
+        if(req.headers['PayPal-Client-Metadata-Id']){
+            options.headers['PayPal-Client-Metadata-Id'] = req.headers['PayPal-Client-Metadata-Id'];
+        } else if (req.headers['paypal-client-metadata-id']){
+            options.headers['PayPal-Client-Metadata-Id'] = req.headers['paypal-client-metadata-id'];
+        }      
+        console.log(options);
         request(options, function (err, response) {
             if (err) {
                 console.error(err);
