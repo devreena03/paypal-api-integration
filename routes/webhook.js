@@ -59,7 +59,7 @@ router.get('/notifications', function (req, res) {
 			 })
 });
 
-router.post("/:username", function(req,res,next){
+router.post("/", function(req,res,next){
   console.log("incoming webhook at "+ new Date());
 
   var body = req.body;
