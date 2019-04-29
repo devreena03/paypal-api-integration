@@ -5,10 +5,11 @@ var braintree = require("braintree");
 var app = express.Router();
 
 var gateway = braintree.connect({
-  accessToken: "access_token$sandbox$cmsjrxqjrjzbcz2r$3ea9b37593fb87eccaa70d92ddf6babf" //apac_apmtesting@pp.com
-// accessToken: "access_token$sandbox$vw8dh7hp79kqtr63$5bc87804a77eaafb170382a7a5b45c7d" // india-bussiness-bt@test.com
+ // accessToken: "access_token$sandbox$cmsjrxqjrjzbcz2r$3ea9b37593fb87eccaa70d92ddf6babf" //apac_apmtesting@pp.com
+ accessToken: "access_token$sandbox$vw8dh7hp79kqtr63$5bc87804a77eaafb170382a7a5b45c7d" // india-bussiness-bt@test.com
   //accessToken: "access_token$sandbox$vghrtfwbgxjj4bsr$3c45a5edfe5a2ceb33fe7358ed5849f6" // india-bussiness-bt1@test.com
 });
+
 
 app.get("/client_token", function (req, res) {
   console.log('client_token');

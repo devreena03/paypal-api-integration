@@ -68,9 +68,14 @@
             url: Create_URL,
             json: body
             
-        }) .then(function(res) {
+        }).then(function(res) {
             console.log(res);
             return res.id;
+        }, function(err){
+            console.log(data);
+            console.log(actions);
+            actions.reject();
+            throw err;
         });
     },
     onAuthorize: function(data, actions) {
