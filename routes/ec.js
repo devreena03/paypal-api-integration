@@ -32,8 +32,8 @@ router.post('/create-payment', function(req, res){
                 return res.sendStatus(500);
             }
             console.log(response.body);
-            return res.sendStatus(500);
-          //  res.json(response.body);
+          //  return res.sendStatus(500);
+            res.json(response.body);
         });
     }, function(err){
         console.log(err);
