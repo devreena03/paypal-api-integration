@@ -109,9 +109,9 @@
 
         function getUrlParams() {
             var queryStr = window.location.search;
+            var params = {};
             if (queryStr) {
-                var paramPairs = queryStr.substr(1).split('&');
-                var params = {};
+                var paramPairs = queryStr.substr(1).split('&');               
                 for (var i = 0; i < paramPairs.length; i++) {
                     var parts = paramPairs[i].split('=');
                     params[parts[0]] = parts[1];
