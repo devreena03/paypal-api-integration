@@ -87,6 +87,10 @@ app.get("/rt", function(req, res){
 	res.sendFile(__basedir + '/public/view/rt.html');
 });
 
+app.get("/hss", function(req, res){
+	res.sendFile(__basedir + '/public/view/hss.html');
+});
+
 app.get("/payment-client", function(req, res){
 	res.sendFile(__basedir + '/public/view/payment-client.html');
 });

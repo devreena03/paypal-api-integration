@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <iframe name="hss_iframe" width="570px" height="540px"></iframe>
+<form style="display:none" target="hss_iframe" name="form_iframe"
+method="post"
+action="https://securepayments.sandbox.paypal.com/webapps/HostedSoleSolutionApp/web
+flow/sparta/hostedSoleSolutionProcess">
+<input type="hidden" name="cmd" value="_hosted-payment">
+<input type="hidden" name="subtotal" value="50">
+<input type="hidden" name="business" value="uk-business-pro@test.com">
+<input type="hidden" name="paymentaction" value="sale">
+<input type="hidden" name="template" value="templateD">
+<input type="hidden" name="return"
+value="https://yourwebsite.com/receipt_page.html">
+</form>
+<script type="text/javascript">
+    document.form_iframe.submit();
+   </script>
+</body>
+</html>

@@ -29,9 +29,9 @@
                           <option value="USD" selected="true">USD</option>
                        </select>
           </div>
-          <br>
+          <!-- <br>
             <input type="hidden" id="details" value="details">
-          <br>
+          <br> -->
       
           <div id="paypal-button-container-ecbt"></div>
         </span>
@@ -55,7 +55,7 @@ paypal.Button.render({
 				},
   
     payment: function (data, actions) {
-      if(document.getElementById("details").checked){
+      if(document.getElementById("details") && document.getElementById("details").checked){
         var input = JSON.parse(document.getElementById("input").value);
         console.log(input);
         amount = input.amount;
@@ -65,7 +65,7 @@ paypal.Button.render({
         amount = document.getElementById("amountId").value;
         currency = document.getElementById("selectedCurrency").value;
         return actions.braintree.create({
-          intent: 'order',
+          intent: 'sale',
           flow: 'checkout', // Required
           amount: amount, // Required
           currency:  currency// Required
@@ -75,7 +75,7 @@ paypal.Button.render({
   
     onAuthorize: function (payload) {
         console.log(payload.nonce);
-        var EXECUTE_URL = '/api/paypal/ecbt/vault';
+        var EXECUTE_URL = '/api/paypal/ecbt/checkout';
         var executeValues = {
             nonce: payload.nonce,
             amount:  amount,
