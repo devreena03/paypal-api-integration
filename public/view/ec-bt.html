@@ -68,7 +68,8 @@ paypal.Button.render({
           intent: 'sale',
           flow: 'checkout', // Required
           amount: amount, // Required
-          currency:  currency// Required
+          currency:  currency, // Required
+          landingPageType:"billing",
         });
       }
     },

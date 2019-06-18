@@ -21,6 +21,7 @@ function setup() {
 //onload();
 
 function loadWebhookDetails(username) {
+    document.getElementById("all").style.display = 'none';
     if (username == "all") {
         webhookRef.orderByChild('create_time').on("value", loadTables);
     } else {
@@ -38,7 +39,7 @@ function showButtonOptions(){
                 var val = data.val();
                 if(!obj[val.username]) {
                    obj[val.username] = "1";
-                   buttons = buttons+`<a type="button" class="btn btn-primary col-md-1" target="_blank" href="/webhook?username=`
+                   buttons = buttons+`<a type="button" style="margin-left: 1%;" class="btn btn-primary col-md-1" target="_blank" href="/webhook?username=`
                    + val.username +`">`+val.username+`</a>`;
                 }              
             }); 
