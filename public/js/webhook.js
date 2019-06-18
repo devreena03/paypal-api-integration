@@ -43,7 +43,7 @@ function showButtonOptions(){
                    + val.username +`">`+val.username+`</a>`;
                 }              
             }); 
-            $("#buttons-link").append(buttons);        
+            $("#buttons-link").html(buttons);        
         }
     });
    
