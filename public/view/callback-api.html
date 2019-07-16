@@ -28,6 +28,10 @@
         "layout": "vertical",
         "size": "medium"
     },
+    funding: {
+                allowed: [ ],
+                disallowed: [ paypal.FUNDING.CARD,paypal.FUNDING.CREDIT ]
+            },
     "client": {
         "sandbox": "AcuuDiWgApKeQx7oY6wuGh2kbAIzy8B1NrruTzVl_vn3Dqv7a-EYGKlHRMb70fjc3eX3EP5rlM3VUp8g", //india-business
         "production": "AdKa7tzVXkAxfmn9d8ZjabDeNngkBXvkuAO6bqYa9qtHPbQABhIh_OE3yb31lwbuPgR2MHOn5qhtslJW"
@@ -85,25 +89,27 @@
                                 }
                             ]);
                         };
-                        // We don't ship outside of the USA.
+                        // We don't ship outside of the IN.
                         console.log(data);
-                        if (data.shipping_address.country_code !== 'US') {
+                        if (data.shipping_address.country_code !== 'IN') {
                             return actions.reject();
                         }
-                        // Set shipping to 0.05 for CA
-                        if (data.shipping_address.state == 'CA') {
+                        // Set shipping to 0.03 for TN
+                        if (data.shipping_address.state == 'TN') {
                             // const shipping = data.amounts.shipping;
                             // // If there are existing shipping costs, patch the cart and remove then
                             // if (shipping && shipping.amount && parseFloat(shipping.amount) !== 0) {
                             //     return patchShippingCost('0.05');
                             // }
-                            return patchShippingCost('0.03');
+                            return patchShippingCost('50.00');
                             // Otherwise just pass through
                             // If shipping address is not passed initially, you don't want to change the shipping address if the same location is chosen.
                            // return actions.resolve();
+                        }if (data.shipping_address.state == 'MH') {
+                            return patchShippingCost('20.00');
                         }
                         // Otherwise we have a flat shipping cost.
-                        return patchShippingCost('0.02');
+                        return patchShippingCost('100.00');
                     },
     "onAuthorize": function(data, actions) {
                         return actions.payment.execute().then((result) => {

@@ -13,6 +13,19 @@ var config = {
   };
 firebase.initializeApp(config);
 
+router.delete('/notifications/:id', function(req, res){
+  console.log("delete Request");
+  var ref = firebase.database().ref("/reena-webhooks/WH-07116015G24478845-3DR475354G855374P");
+  ref.remove()
+  .then(function() {
+    console.log("Remove succeeded.")
+  })
+  .catch(function(error) {
+    console.log("Remove failed: " + error.message)
+  });
+  
+});
+
 router.get('/notifications/:username', function (req, res) {
   
   console.log("HTTP Get Request");

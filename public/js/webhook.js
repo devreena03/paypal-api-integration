@@ -1,5 +1,6 @@
 var webhooks = [];
 var webhookRef;
+var database;
 function setup() {
     var config = {
         apiKey: "AIzaSyCAVHyAObAk9kKAAuYeU4a4aggCUVQ6UHs",
@@ -10,7 +11,8 @@ function setup() {
         messagingSenderId: "608226426951"
     };
     firebase.initializeApp(config);
-    webhookRef = firebase.database().ref("/reena-webhooks");
+    database = firebase.database();
+    webhookRef = database.ref("/reena-webhooks");
 }
 
 (function () {  
@@ -59,6 +61,7 @@ function loadTables(snapshot) {
     <th>Resource Id</th>
     <th>Created Time (UTC) </th> 
     <th>Summary</th>
+    <th>Actions</th>
 </tr>
 </table>`;
 
@@ -80,6 +83,7 @@ function loadTables(snapshot) {
             content += '<td>' + val.resource.id + '</td>';
             content += '<td>' + moment(new Date(val.create_time)).utc().format() + '</td>';
             content += '<td>' + val.summary + '</td>';
+            content += '<td><a onclick=deleteWebhook("' + val.id + '")><span class="glyphicon glyphicon-trash"></span></a></td>';
             content += '</tr>';
         })
         $('#ex-table').append(content);
@@ -99,6 +103,19 @@ function showDetails(id) {
     console.log(obj);
     $('#outputData').text(JSON.stringify(obj, null, 2));
     $("#myModal").modal();
+}
+
+function deleteWebhook(id){
+ console.log(id);
+// var ref = ""
+ var ref = database.ref("/reena-webhooks/"+id);
+ ref.remove()
+ .then(function() {
+   console.log("Remove succeeded."+id);
+ })
+ .catch(function(error) {
+   console.log("Remove failed: " + error.message)
+ });
 }
 
 function getUrlParams() {
